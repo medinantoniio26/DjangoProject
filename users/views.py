@@ -29,7 +29,7 @@ def sign_in(request):
 
 def sign_out(request):
     logout(request)
-    messages.success(request,f'You have been logged out.')
+    messages.success(request,f'Se cerró la Sesión.')
     return redirect('login')
 
 def sign_up(request):
@@ -43,7 +43,7 @@ def sign_up(request):
             user = form.save(commit=False)
             user.username = user.username.lower()
             user.save()
-            messages.success(request, 'You have singed up successfully.')
+            messages.success(request, 'Accedió Correctamente.')
             login(request, user)
             return redirect('posts')
         else:

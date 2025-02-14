@@ -4,20 +4,6 @@ from django.contrib.auth.decorators import  login_required
 from .models import Post
 from .forms import PostForm
 
-posts = [
-    {
-        'title': 'Beautiful is better than ugly',
-        'author': 'John Doe',
-        'content': 'Beautiful is better than ugly',
-        'published_at': 'October 1, 2022'
-    },
-    {
-        'title': 'Explicit is better than implicit',
-        'author': 'Jane Doe',
-        'content': 'Explicit is better than implicit',
-        'published_at': 'October 1, 2022'
-    }
-]
 
 @login_required
 def create_post(request):
@@ -30,7 +16,7 @@ def create_post(request):
             user = form.save(commit=False)
             user.author = request.user
             user.save()
-            messages.success(request, 'The post has been created successfully.')
+            messages.success(request, 'Publicación creada, exitosamente.')
             return redirect('posts')
         else:
             messages.error(request, 'Please correct the following errors:')
@@ -49,7 +35,7 @@ def edit_post(request, id):
         form = PostForm(request.POST, instance=post)
         if form.is_valid():
             form.save()
-            messages.success(request, 'The post has been updated successfully.')
+            messages.success(request, 'Publicación Actualizada.')
             return redirect('posts')
         else:
             messages.error(request, 'Please correct the following errors:')
@@ -65,7 +51,7 @@ def delete_post(request, id):
         return render(request, 'blog/post_confirm_delete.html',context)
     elif request.method == 'POST':
         post.delete()
-        messages.success(request,  'The post has been deleted successfully.')
+        messages.success(request,  'Publicación Eliminada.')
         return redirect('posts')
 
 
