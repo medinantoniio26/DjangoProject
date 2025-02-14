@@ -40,6 +40,7 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'users.apps.UsersConfig',
     'blog.apps.BlogConfig',
+    #LOGIN_URL = 'login'
 ]
 
 MIDDLEWARE = [
@@ -53,6 +54,8 @@ MIDDLEWARE = [
 ]
 
 ROOT_URLCONF = 'djangoproject.urls'
+
+LOGIN_URL = 'accounts/login/'
 
 TEMPLATES = [
     {

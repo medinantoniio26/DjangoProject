@@ -24,7 +24,7 @@ def sign_in(request):
                 return redirect('posts')
         
         # form is not valid or user is not authenticated
-        messages.error(request,f'Invalid username or password')
+        messages.error(request,f'Usuario o Contraseña incorrectos.')
         return render(request,'users/login.html',{'form': form})
 
 def sign_out(request):
