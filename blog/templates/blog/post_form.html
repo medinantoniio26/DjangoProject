@@ -9,16 +9,15 @@
 <body>
     
 	
-{% block content %}
+    {% block content %}
 
-<h2>New Post</h2>
-<form method="post" novalidate>
-	{% csrf_token %}
-	{{ form.as_p }}
+    <h2>{% if id %} Edit {% else %} New {% endif %} Post</h2>
+    <form method="post" novalidate>
+        {% csrf_token %}
+        {{ form.as_p }}
+        <input type="submit" value="Save" />
+    </form>
     
-	<input type="submit" value="Save" />
-</form>
-
-{% endblock content %}
+    {% endblock content %}
 </body>
 </html>
