@@ -2,7 +2,9 @@ from django.shortcuts import render, redirect
 from django.contrib import messages
 from django.contrib.auth import login, authenticate, logout
 from .forms import LoginForm, RegisterForm
-
+from django.contrib.auth.decorators import login_required
+#from .models import Profile
+#from .forms import ProfileForm
 
 def sign_in(request):
 
@@ -23,7 +25,6 @@ def sign_in(request):
                 messages.success(request,f'Hola {username.title()}, Bienvendo de nuevo!')
                 return redirect('posts')
         
-        # form is not valid or user is not authenticated
         messages.error(request,f'Usuario o Contraseña incorrectos.')
         return render(request,'users/login.html',{'form': form})
 
@@ -48,3 +49,18 @@ def sign_up(request):
             return redirect('posts')
         else:
             return render(request, 'users/register.html', {'form': form})
+"""
+@login_required
+def view_profile(request):
+    profile = request.user.profile
+
+    if request.method == 'POST':
+        form = ProfileForm(request.POST, request.FILES, instance=profile)
+        if form.is_valid():
+            form.save()
+            return redirect('profile')
+    else:
+        form = ProfileForm(instance=profile)
+
+    return render(request, 'profile.html', {'form': form})
+"""

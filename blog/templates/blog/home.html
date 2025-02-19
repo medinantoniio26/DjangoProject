@@ -14,19 +14,20 @@
 		<h1 class="text-center mb-4">Mis Publicaciones</h1>
 
 		{% if is_admin %}
-    <!-- Contenido solo para administradores -->
+    
     <p>Bienvenido, administrador.</p>
-{% else %}
-    <!-- Contenido solo para usuarios convencionales -->
-    <p>Bienvenido, usuario convencional.</p>
-{% endif %}
+		{% else %}
+    
+    <p>Bienvenido, usuario</p>
+		{% endif %}
 
 		{% for post in posts %}
 			<div class="card mb-4">
 				<div class="card-body">
 					<h2 class="card-title">{{ post.title }}</h2>
-					<small class="text-muted">Publicado el {{ post.published_at | date:"d M, Y" }} por {{ post.author | title }}</small>
 					<p class="card-text mt-3">{{ post.content }}</p>
+					<small class="text-muted">Publicado el {{ post.published_at | date:"d M, Y" }} por {{ post.author | title }}</small>
+					
 					
 					{% if request.user.is_authenticated and request.user == post.author %}
 						<div class="d-flex justify-content-start mt-3">

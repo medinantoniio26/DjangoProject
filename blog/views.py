@@ -19,7 +19,7 @@ def home(request):
 
 
 def create_post(request):
-    is_admin = request.user.groups.filter(name='Admin').exists()  # Verificar si el usuario es administrador
+    is_admin = request.user.groups.filter(name='admins').exists()  
 
     if request.method == 'GET':
         context = {'form': PostForm(), 'is_admin': is_admin}
@@ -33,13 +33,11 @@ def create_post(request):
             post.save()
             messages.success(request, 'Publicación creada exitosamente.')
             return redirect('posts')
-        else:
-            messages.error(request, 'Por favor, corrija los siguientes errores:')
-            return render(request, 'blog/post_form.html', {'form': form, 'is_admin': is_admin})
+        
 
 @login_required
 def edit_post(request, id):
-    is_admin = request.user.groups.filter(name='Admin').exists()  # Verificar si el usuario es administrador
+    is_admin = request.user.groups.filter(name='admins').exists()  
     queryset = Post.objects.filter(author=request.user)
     post = get_object_or_404(queryset, pk=id)
 
@@ -59,7 +57,7 @@ def edit_post(request, id):
 
 @login_required
 def delete_post(request, id):
-    is_admin = request.user.groups.filter(name='Admin').exists()  # Verificar si el usuario es administrador
+    is_admin = request.user.groups.filter(name='admins').exists()  
     queryset = Post.objects.filter(author=request.user)
     post = get_object_or_404(queryset, pk=id)
     context = {'post': post, 'is_admin': is_admin}
