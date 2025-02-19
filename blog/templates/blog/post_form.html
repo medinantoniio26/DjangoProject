@@ -1,23 +1,25 @@
 {% extends 'base.html' %}
 <!DOCTYPE html>
-<html lang="en">
+<html lang="es">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>{% if id %} Editar {% else %} Nuevo {% endif %} Post</title>
+    {% load django_bootstrap5 %}
+    {% bootstrap_css %}
 </head>
-<body>
-    
-	
-    {% block content %}
-
-    <h2>{% if id %} Edit {% else %} New {% endif %} Post</h2>
-    <form method="post" novalidate>
-        {% csrf_token %}
-        {{ form.as_p }}
-        <input type="submit" value="Save" />
-    </form>
-    
-    {% endblock content %}
+<body class="d-flex align-items-center" style="min-height: 100vh;">
+    <div class="container my-5">
+        {% block content %}
+        <h2 class="text-center mb-4">{% if id %} Editar {% else %} Nuevo {% endif %} Post</h2>
+        <form method="post" novalidate>
+            {% csrf_token %}
+            <div class="mb-3">
+                {{ form.as_p }}
+            </div>
+            <button type="submit" class="btn btn-primary">Guardar</button>
+        </form>
+        {% endblock content %}
+    </div>
 </body>
 </html>
