@@ -8,18 +8,25 @@
     {% load django_bootstrap5 %}
     {% bootstrap_css %}
 </head>
-<body class="d-flex align-items-center" style="min-height: 100vh;">
+<body>
     <div class="container my-5">
-        {% block content %}
-        <h2 class="text-center mb-4">{% if id %} Editar {% else %} Nuevo {% endif %} Post</h2>
-        <form method="post" novalidate>
-            {% csrf_token %}
-            <div class="mb-3">
-                {{ form.as_p }}
+        <div class="card mb-4" style="border-color: black;">
+            <div class="card-body" >
+                {% block content %}
+                <div class="card2 mx-auto p-4" style="max-width: 400px;">
+                    
+                <h2 class="text-center mb-4">{% if id %} Editar {% else %} Nuevo {% endif %} Post</h2>
+                <form method="post" novalidate>
+                    {% csrf_token %}
+                    <div class="mb-3">
+                        {{ form.as_p }}
+                    </div>
+                    <button type="submit" class="btn btn-primary center">Guardar</button>
+                </form>
+                {% endblock content %}
+                </div>
             </div>
-            <button type="submit" class="btn btn-primary">Guardar</button>
-        </form>
-        {% endblock content %}
+        </div>
     </div>
 </body>
 </html>

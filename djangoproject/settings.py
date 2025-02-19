@@ -57,6 +57,7 @@ MIDDLEWARE = [
 ROOT_URLCONF = 'djangoproject.urls'
 
 LOGIN_URL = 'accounts/login/'
+LOGIN_REDIRECT_URL = '/'
 
 TEMPLATES = [
     {
@@ -93,8 +94,8 @@ DATABASES = {
         'NAME': 'djangoproject',
         'USER': 'jmedina',
         'PASSWORD': '12345678a',
-        'HOST': 'localhost',  # Use '127.0.0.1' if 'localhost' doesn't work
-        'PORT': '5432',       # Default PostgreSQL port
+        'HOST': 'localhost',  
+        'PORT': '5432',      
     }
 }
 

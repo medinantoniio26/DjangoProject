@@ -13,11 +13,16 @@
   </head>
   <body>
   	<header>
-  		<div class="">
+  		<div class="card-body mx-auto">
 			{%if request.user.is_authenticated %}
+		<!-- <li>User: {{ user.get_username }}</li> -->
+		
 			<ul class="navbar navbar-dark bg-dark">
 				<li class="nav-item">
-				  <a class="nav-link link-light" href="{% url 'posts' %}">Mis Publicaciones</a>
+					<a class="nav-link link-light" style="margin-left: 19px;" href="{% url 'posts' %}">Perfil</a>
+				  </li>
+				<li class="nav-item">
+				  <a class="nav-link link-light" href="{% url 'posts' %}">Publicaciones</a>
 				</li>
 				<li class="nav-item">
 				  <a class="nav-link link-light" href="{% url 'post-create' %}">Nueva Publicación</a>
