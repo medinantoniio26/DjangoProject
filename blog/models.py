@@ -8,9 +8,6 @@ class Post(models.Model):
     content = models.TextField()
     published_at = models.DateTimeField(default=timezone.now)
     author = models.ForeignKey(User, on_delete=models.CASCADE)    
-    
-     #def __str__(self):
-     #   return self.title
 
     class Meta:
         ordering = ['-published_at']
