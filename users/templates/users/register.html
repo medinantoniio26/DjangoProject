@@ -3,50 +3,41 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
-	{% extends 'base.html' %}
-	{% load bootstrap5 %}
-	{% bootstrap_css %}
+    <title>Registrarse</title>
+    {% extends 'base.html' %}
+    {% load django_bootstrap5 %}
+    {% bootstrap_css %}
 </head>
 <body>
    <div class="container">
-	{% block content %}
-	<form method="POST" novalidate>
-		{% csrf_token %}
-		<h2>Registrate</h2>
-		<div class="mb-3">
-			<label for="exampleInputEmail1" class="form-label">Correo electrónico</label>
-			<input type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp">
-			<div id="emailHelp" class="form-text">Nunca compartiremos su correo electrónico con nadie más.</div>
-		  </div>
-		  <div class="mb-3">
-			<label for="exampleInputPassword1" class="form-label">Contraseña</label>
-			<input type="password" class="form-control" id="exampleInputPassword1">
-		  </div>
-		  <div class="mb-3 form-check">
-			<input type="checkbox" class="form-check-input" id="exampleCheck1">
-			<label class="form-check-label" for="exampleCheck1">Verificado</label>
-		  </div>
-		  <button type="submit" class="btn btn-primary">Enviar</button>
-		{% for field in form %}
-		<p>
-			{% if field.errors %}
-			<ul class="errorlist">
-				{% for error in field.errors %}
-				<li>{{ error }}</li>
-				{% endfor %}
-			</ul>
-			{% endif %}
-			 {{ field.label_tag }} {{ field }}
-		</p>
-		{% endfor %}
-		<input type="submit" value="Registrarse" />
-		<p>Ya tiene una Cuenta? <a href="{%url 'login' %}">Iniciar Sesión</a></p>
-	</form>
-	{% endblock content%}
+    {% block content %}
+    <form method="POST" novalidate>
+        {% csrf_token %}
+        <h2>Registrate</h2>
+
+        <!-- Si tienes campos en el formulario, podemos renderizarlos automáticamente con Bootstrap -->
+        {% bootstrap_form form %}
+
+        <!-- Botón de enviar -->
+        <button type="submit" class="btn btn-primary">Registrarse</button>
+
+        <!-- Mostrar errores del formulario -->
+        {% for field in form %}
+            {% if field.errors %}
+            <div class="alert alert-danger">
+                <ul>
+                    {% for error in field.errors %}
+                    <li>{{ error }}</li>
+                    {% endfor %}
+                </ul>
+            </div>
+            {% endif %}
+        {% endfor %}
+
+        <!-- Enlace para iniciar sesión si ya tienen cuenta -->
+        <p>Ya tienes una cuenta? <a href="{% url 'login' %}">Iniciar sesión</a></p>
+    </form>
+    {% endblock content %}
    </div>
-
-
-
 </body>
 </html>

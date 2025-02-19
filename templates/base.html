@@ -1,4 +1,6 @@
 {%load static %}
+{% load django_bootstrap5 %}
+	{% bootstrap_css %}
 <!DOCTYPE html>
 <html lang="en">
   <head>
@@ -7,8 +9,7 @@
     <link rel="stylesheet" href="{% static 'css/style.css' %}" />
     <script src="{% static 'js/app.js' %}" defer></script>
     <title>My Site</title>
-	{% load bootstrap5 %}
-	{% bootstrap_css %}
+	
   </head>
   <body>
   	<header>
