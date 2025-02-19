@@ -41,7 +41,7 @@ INSTALLED_APPS = [
     'users.apps.UsersConfig',
     'blog.apps.BlogConfig',
     #LOGIN_URL = 'login'
-    'bootstrap5',
+    'django_bootstrap5',
 ]
 
 MIDDLEWARE = [
