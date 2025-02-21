@@ -13,7 +13,7 @@ def home(request):
     return render(request, 'blog/home.html', context) 
 
 
-
+@login_required
 def create_post(request):
     is_admin = request.user.groups.filter(name='admins').exists()  
 

@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    {% load static %}
+
+    <link rel="stylesheet" href="{% static 'polls/style.css' %}">
+    
+    <title>Resultados</title>
+</head>
+<body>
+    <div class="div1">
+        <div class="div2">
+            <h1>{{ question.question_text }}</h1>
+
+<ul>
+{% for choice in question.choice_set.all %}
+    <li>{{ choice.choice_text }} - {{ choice.votes }} vote{{ choice.votes|pluralize }}  
+        
+    </li>
+    {% endfor %}
+    
+    <form action="{% url 'polls:reset_votes' question.id %}" method="post">
+            {% csrf_token %}
+
+            {% if messages %}
+            
+            {% endif %}
+
+            <button type="submit">Resetear Votos</button>
+        </form>
+</ul>
+
+<a href="{% url 'polls:detail' question.id %}">Enviar otra Respuesta</a>
+<a style="background-color: black;" href="{% url 'polls:index' %}">Mas Encuestas</a>
+<a style="color: rgb(0, 234, 255);" href="{% url 'polls:createnew' %}">Crea tu Propia Pregunta</a>
+        </div>
+    </div>
+   
+</body>
+</html>
+
+

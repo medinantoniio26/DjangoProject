@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    {% load static %}
+    <link rel="stylesheet" href="{% static 'polls/style.css' %}">
+    <title>Editar</title>
+</head>
+<body>
+    <div class="div1">
+        <div class="div2">
+            <div class="container">
+                <div class="form-container">
+                    <form method="POST">
+                        {% csrf_token %}
+                        <h1>Editar pregunta</h1>
+                        <input type="text" name="question_text" value="{{ question.question_text }}" placeholder="{{ question.id }}" required>
+                        <button type="submit">Guardar cambios</button>
+                        <a style="color: rgb(0, 234, 255);" href="{% url 'polls:index' %}">Volver al inicio</a>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

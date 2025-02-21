@@ -12,7 +12,7 @@
 	
 
 {% block content %}
-<div class="container my-2" style="background-color: #d5ddde; border-radius: 15px;">
+<div class="container my-2" style="background-color: #d5ddde; border-radius: 15px; padding: 12px;">
     <h1 class="text-center mb-4" style="padding-top: 20px; color: #3d5866;">Mis Publicaciones</h1>
 
     {% if is_admin %}
@@ -34,9 +34,16 @@
 					
                         <a href="{% url 'post-edit' post.id %}" class="btn btn-outline-warning "><i class="bi bi-pencil-square"></i>Editar</a>
                         <a href="{% url 'post-delete' post.id %}" class="btn btn-outline-danger">Eliminar</a>
+                        {% else %}
+
+                        
                     {% endif %}
                 </div>
             {% endif %}
+            <div class="d-grid gap-2 d-md-flex justify-content-md-start" style="margin-top: 20px;">
+                <a href="#" class="btn btn-outline-dark">Ver Comentarios</a>
+                <a href="#" class="btn btn-outline-primary">Encuesta Disponible</a>
+            </div>
         </div>
     </div>
 	
@@ -46,15 +53,15 @@
 	<div class="col-md-8">
 
 	</div>
-	<div class="col-md-4">
-		<div class="card mb-4">
-			<div class="card-body">
-				<h5 class="card-title">Sistema de Encuestas</h5>
-				<p class="card-text">¿Le gustaria ayudarnos respondiendo unas breves encuestas relacionadas a las Publicaciones?</p>
-				<a href="#" class="btn btn-primary">Ir a las Encuestas</a>
-			</div>
-		</div>
-	</div>
+    <div class="col-md-4"></div>
+        <div class="card mb-4" style="background-color: #f8f9fa; border: 1px solid #ced4da;">
+            <div class="card-body">
+                <h5 class="card-title" style="color: #007bff;">Sistema de Encuestas</h5>
+                <p class="card-text">¿Le gustaría ayudarnos respondiendo unas breves encuestas relacionadas a las Publicaciones?</p>
+                <a href="#" class="btn btn-primary">Ir a las Encuestas</a>
+            </div>
+        </div>
+    </div>
 </div>
   
 {% endblock %}
