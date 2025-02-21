@@ -14,21 +14,30 @@
         <div class="card-body">
           {% block content %}
           <div class="card2 mx-auto p-4" style="max-width: 400px;">
-            <h2 class="text-center mb-4">Delete Post</h2>
+            <h2 class="text-center mb-4"></h2>
 
-          <form method="POST">
-            {% csrf_token %}
-            <p>Are you sure that you want to delete the post "{{post.title}}"?</p>
-            <div class="d-flex justify-content-start mt-3">
-              <button type="submit" class="btn btn-danger btn-sm" style="margin: 10px;">Yes, Delete</button>
-              <a href="{% url 'posts' %}" class="btn btn-warning btn-sm me-2" style="margin: 10px;">Cancel</a>
+          
+          <div class="card border-danger mb-3" style="max-width: 38rem;">
+            <div class="card-header">
+              <h5 class="card-title">Eliminar</h5>
             </div>
-          </form>
-
+            <div class="card-body text-danger">
+              <form method="POST">
+                {% csrf_token %}
+                <p>¿De verdad, desea Eliminar la Publicación "{{post.title}}"?</p>
+                <div class="d-flex justify-content-md-end">
+                  <button type="submit" class="btn btn-danger btn-sm" style="margin: 10px;">Si, Eliminar</button>
+                  <a href="{% url 'posts' %}" class="btn btn-warning btn-sm me-2 " style="margin: 10px;">Cancelar</a>
+                </div>
+              </form>
+            </div>
+          </div>
           {% endblock content %}
           </div>
         </div>
       </div>
     </div>
+
+    
 </body>
 </html>

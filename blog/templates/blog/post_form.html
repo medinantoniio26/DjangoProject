@@ -1,29 +1,48 @@
 {% extends 'base.html' %}
+{% load django_bootstrap5 %}
+    {% bootstrap_css %}
 <!DOCTYPE html>
 <html lang="es">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>{% if id %} Editar {% else %} Nuevo {% endif %} Post</title>
-    {% load django_bootstrap5 %}
-    {% bootstrap_css %}
+    <title>{% if id %} Editar {% else %} {% endif %} Publicación</title>
+    
 </head>
 <body>
-    <div class="container my-5">
-        <div class="card mb-4" style="border-color: black;">
-            <div class="card-body" >
-                {% block content %}
-                <div class="card2 mx-auto p-4" style="max-width: 400px;">
+    {% block content %}
+    <div class="">
+        
+        <div class="">
+            <div class="" style="border-color: black;">
+                <div class="card-body" >
                     
-                <h2 class="text-center mb-4">{% if id %} Editar {% else %} Nuevo {% endif %} Post</h2>
-                <form method="post" novalidate>
-                    {% csrf_token %}
-                    <div class="mb-3">
-                        {{ form.as_p }}
+                    
+                    <div class="card2 mx-auto p-4" style="max-width: 400px;">
+                        
+                    <h2 class="text-center mb-4">{% if id %} Editar {% else %} Nuevo {% endif %} Post</h2>
+                    
+                    <form method="post" novalidate>
+                        {% csrf_token %}
+                        <div class="mb-3">
+                            <div class="mb-3">
+                                {{ form.as_p }}
+                            </div>
+                         <!-- <label for="exampleInputEmail1" class="form-label">Email address</label>
+                          <input type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp">
+                          <div id="emailHelp" class="form-text">We'll never share your email with anyone else.</div>
+                        </div>
+                        <div class="mb-3">
+                          <label for="exampleInputPassword1" class="form-label">Password</label>
+                          <input type="password" class="form-control" id="exampleInputPassword1">
+                        </div> -->
+                       
+                        <button type="submit" class="btn btn-primary center">Guardar</button>
+                      </form>
+                      
+                        
+                    {% endblock content %}
                     </div>
-                    <button type="submit" class="btn btn-primary center">Guardar</button>
-                </form>
-                {% endblock content %}
                 </div>
             </div>
         </div>

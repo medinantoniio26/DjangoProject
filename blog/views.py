@@ -7,14 +7,10 @@ from .forms import PostForm
 
 
 def home(request):
-    if request.user.is_authenticated:
-        posts = Post.objects.all()
-        is_admin = request.user.groups.filter(name='admins').exists()
-        context = {'posts': posts, 'is_admin': is_admin}
-        return render(request, 'blog/home.html', context)
-    else:
-        messages.error(request, "Debes iniciar sesión para ver este contenido.")
-        return redirect('login')  
+    posts = Post.objects.all()  
+    is_admin = request.user.is_authenticated and request.user.groups.filter(name='admins').exists()
+    context = {'posts': posts, 'is_admin': is_admin}
+    return render(request, 'blog/home.html', context) 
 
 
 
@@ -35,39 +31,45 @@ def create_post(request):
             return redirect('posts')
         
 
+from django.contrib.auth.models import Group
+
 @login_required
 def edit_post(request, id):
-    is_admin = request.user.groups.filter(name='admins').exists()  
-    queryset = Post.objects.filter(author=request.user)
-    post = get_object_or_404(queryset, pk=id)
+    post = get_object_or_404(Post, pk=id)
+    is_admin = request.user.groups.filter(name='admins').exists()
 
-    if request.method == 'GET':
-        context = {'form': PostForm(instance=post), 'id': id, 'is_admin': is_admin}
-        return render(request, 'blog/post_form.html', context)
-    
-    elif request.method == 'POST':
+    if not (is_admin or post.author == request.user):
+        messages.error(request, "No tienes permiso para editar esta publicación.")
+        return redirect('posts')
+
+    if request.method == 'POST':
         form = PostForm(request.POST, instance=post)
         if form.is_valid():
             form.save()
             messages.success(request, 'Publicación actualizada.')
             return redirect('posts')
-        else:
-            messages.error(request, 'Por favor, corrija los siguientes errores:')
-            return render(request, 'blog/post_form.html', {'form': form, 'is_admin': is_admin})
+    else:
+        form = PostForm(instance=post)
+
+    return render(request, 'blog/post_form.html', {'form': form, 'is_admin': is_admin})
+
 
 @login_required
 def delete_post(request, id):
-    is_admin = request.user.groups.filter(name='admins').exists()  
-    queryset = Post.objects.filter(author=request.user)
-    post = get_object_or_404(queryset, pk=id)
-    context = {'post': post, 'is_admin': is_admin}
+    post = get_object_or_404(Post, pk=id)
+    is_admin = request.user.groups.filter(name='admins').exists()
 
-    if request.method == 'GET':
-        return render(request, 'blog/post_confirm_delete.html', context)
-    elif request.method == 'POST':
+    if not (is_admin or post.author == request.user):
+        messages.error(request, "No tienes permiso para eliminar esta publicación.")
+        return redirect('posts')
+
+    if request.method == 'POST':
         post.delete()
         messages.success(request, 'Publicación eliminada.')
         return redirect('posts')
+
+    return render(request, 'blog/post_confirm_delete.html', {'post': post, 'is_admin': is_admin})
+
 
 def about(request):
         return render(request, 'blog/about.html')

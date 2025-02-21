@@ -3,8 +3,9 @@ from django.contrib import messages
 from django.contrib.auth import login, authenticate, logout
 from .forms import LoginForm, RegisterForm
 from django.contrib.auth.decorators import login_required
-#from .models import Profile
-#from .forms import ProfileForm
+from .models import Profile
+from .forms import ProfileForm
+from django.contrib.auth.forms import UserChangeForm
 
 def sign_in(request):
 
@@ -49,18 +50,19 @@ def sign_up(request):
             return redirect('posts')
         else:
             return render(request, 'users/register.html', {'form': form})
-"""
+
 @login_required
-def view_profile(request):
-    profile = request.user.profile
-
+def profile(request):
     if request.method == 'POST':
-        form = ProfileForm(request.POST, request.FILES, instance=profile)
+        form = ProfileForm(request.POST, instance=request.user)
         if form.is_valid():
-            form.save()
-            return redirect('profile')
+            # Guarda el formulario si es válido
+            user = form.save(commit=False)
+            if form.cleaned_data.get('password'):  # Si se ha proporcionado una nueva contraseña
+                user.set_password(form.cleaned_data['password'])  # Establece la nueva contraseña
+            user.save()
+            return redirect('profile')  # Redirige a la página de perfil
     else:
-        form = ProfileForm(instance=profile)
+        form = ProfileForm(instance=request.user)
 
-    return render(request, 'profile.html', {'form': form})
-"""
+    return render(request, 'users/profile.html', {'form': form})
