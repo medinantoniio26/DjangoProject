@@ -1,0 +1,57 @@
+{% extends 'base.html' %}
+{% load django_bootstrap5 %}
+
+{% block content %}
+<div class="container my-5" style="background-color: #d5ddde; border-radius: 15px; padding: 12px;">
+    <div class="card mb-4" style="padding-top: 20px; color: #3d5866;">
+        <div class="card-body p-4">
+            <h1 class="mb-4">{{ post.title }}</h1>
+            <p>{{ post.content }}</p>
+            {% if post.image %}
+                <img src="{{ post.image.url }}" class="img-fluid mb-3" alt="Imagen de {{ post.title }}">
+            {% endif %}
+            <p><strong>Categoría:</strong> {{ post.category }}</p>
+            <small class="text-muted">Publicado el {{ post.published_at | date:"d M, Y" }} por {{ post.author | title }}</small>
+            <div class="d-grid gap-2 d-md-flex justify-content-md-end">
+                {% if is_admin or request.user == post.author %}
+                    <form method="POST" action="{% url 'post-delete' post.id %}" style="display:inline;">
+                        {% csrf_token %}
+                        <a href="{% url 'post-edit' post.id %}" class="btn btn-outline-warning">Editar</a>
+                        <button type="submit" class="btn btn-outline-danger"><i class="bi bi-trash"></i>Eliminar</button>
+                    </form>
+                {% endif %}
+            </div>
+        </div>
+    </div>
+    <h2 class="h4 mt-5">Agrega un Comentario</h2>
+    <form method="POST" action="{% url 'add_comment_to_post' pk=post.pk %}" class="post-form">
+        {% csrf_token %}
+        {{ form.non_field_errors }}
+        <div class="form-group">
+            {{ form.text.label_tag }}
+            {{ form.text }}
+        </div>
+        <button type="submit" class="btn btn-sm btn-primary mt-3">Comentar</button>
+    </form>
+    <hr class="my-4">
+    <h3>Comentarios</h3>
+    {% for comment in post.comments.all %}
+        <div class="card mb-3">
+            <div class="card-body">
+                <strong>{{ comment.author }}</strong>
+                <p>{{ comment.text|linebreaks }}</p>
+                <div class="date text-muted">{{ comment.created_date }}</div>
+                
+                {% if is_admin or comment.author == request.user.username %}
+                    <form method="POST" action="{% url 'delete_comment' pk=comment.pk %}" style="display:inline;">
+                        {% csrf_token %}
+                        <button type="submit" class="btn btn-danger btn-sm">Eliminar</button>
+                    </form>
+                {% endif %}
+            </div>
+        </div>
+    {% empty %}
+        <p>Aun no hay Comentarios.</p>
+    {% endfor %}
+</div>
+{% endblock %}

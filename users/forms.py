@@ -16,11 +16,17 @@ class LoginForm(forms.Form):
     
 
 class RegisterForm(UserCreationForm):
-    username = forms.CharField(required=False)  # Evita validación en blanco al inicio
+    username = forms.CharField(required=False) 
     password1 = forms.CharField(widget=forms.PasswordInput, required=False)
     password2 = forms.CharField(widget=forms.PasswordInput, required=False)
     email = forms.EmailField(required=True)
     class Meta:
         model=User
         fields = ['username','email','password1','password2'] 
-   
+        labels = {
+            'username': 'Nombre de usuario',
+            'email': 'Correo electrónico',
+            'password1': 'Contraseña',
+            'password2': 'Confirmar contraseña',
+        }
+        
