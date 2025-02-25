@@ -56,12 +56,11 @@ def profile(request):
     if request.method == 'POST':
         form = ProfileForm(request.POST, instance=request.user)
         if form.is_valid():
-            # Guarda el formulario si es válido
             user = form.save(commit=False)
-            if form.cleaned_data.get('password'):  # Si se ha proporcionado una nueva contraseña
-                user.set_password(form.cleaned_data['password'])  # Establece la nueva contraseña
+            if form.cleaned_data.get('password'):  
+                user.set_password(form.cleaned_data['password'])
             user.save()
-            return redirect('profile')  # Redirige a la página de perfil
+            return redirect('profile')  
     else:
         form = ProfileForm(instance=request.user)
 

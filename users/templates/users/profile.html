@@ -14,7 +14,7 @@
 <div class="container my-5">
     <h2>Tu perfil</h2>
     <div class="card p-4">
-        <form method="post">
+        <form method="post" novalidate>
             {% csrf_token %}
             {{ form.as_p }}
             <button type="submit" class="btn btn-primary">Guardar cambios</button>
