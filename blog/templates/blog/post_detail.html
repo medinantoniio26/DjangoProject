@@ -12,7 +12,7 @@
             {% endif %}
             <p><strong>Categoría:</strong> {{ post.category }}</p>
             <small class="text-muted">Publicado el {{ post.published_at | date:"d M, Y" }} por {{ post.author | title }}</small>
-            <div class="d-grid gap-2 d-md-flex justify-content-md-end">
+            <!--<div class="d-grid gap-2 d-md-flex justify-content-md-end">
                 {% if is_admin or request.user == post.author %}
                     <form method="POST" action="{% url 'post-delete' post.id %}" style="display:inline;">
                         {% csrf_token %}
@@ -20,7 +20,7 @@
                         <button type="submit" class="btn btn-outline-danger"><i class="bi bi-trash"></i>Eliminar</button>
                     </form>
                 {% endif %}
-            </div>
+            </div> -->
         </div>
     </div>
     <h2 class="h4 mt-5">Agrega un Comentario</h2>
