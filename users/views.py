@@ -1,11 +1,16 @@
-from django.shortcuts import render, redirect
+from django.shortcuts import render, get_object_or_404, redirect
 from django.contrib import messages
 from django.contrib.auth import login, authenticate, logout
-from .forms import LoginForm, RegisterForm
-from django.contrib.auth.decorators import login_required
+from django.contrib.auth.decorators import login_required, user_passes_test
 from .models import Profile
-from .forms import ProfileForm
+from .forms import LoginForm, RegisterForm, ProfileForm, UserForm
 from django.contrib.auth.forms import UserChangeForm
+from django.contrib.auth.models import User
+from blog.models import Post  
+from .forms import PostForm
+
+#def home(request):
+#    return render(request, 'home.html')
 
 def sign_in(request):
 
@@ -65,3 +70,50 @@ def profile(request):
         form = ProfileForm(instance=request.user)
 
     return render(request, 'users/profile.html', {'form': form})
+
+@user_passes_test(lambda u: u.is_superuser)
+def admin_users(request):
+    users = User.objects.all()
+    return render(request, 'users/admin_users.html', {'users': users})
+
+@user_passes_test(lambda u: u.is_superuser)
+def delete_user(request, user_id):
+    user = get_object_or_404(User, id=user_id)
+    user.delete()
+    return redirect('admin_users')
+
+@user_passes_test(lambda u: u.is_superuser)
+def user_posts(request, user_id):
+    user = get_object_or_404(User, id=user_id)
+    posts = Post.objects.filter(author=user)
+    is_admin = request.user.is_authenticated and request.user.is_superuser
+    return render(request, 'users/user_posts.html', {'user': user, 'posts': posts, 'is_admin': is_admin})
+
+@login_required
+def my_posts(request):
+    posts = Post.objects.filter(author=request.user)
+    is_admin = request.user.is_authenticated and request.user.is_superuser
+    return render(request, 'blog/my_posts.html', {'posts': posts, 'is_admin': is_admin})
+
+
+ 
+"""
+@login_required
+def edit_post(request, id):
+    post = get_object_or_404(Post, id=id)
+    if request.method == "POST":
+        form = PostForm(request.POST, request.FILES, instance=post)
+        if form.is_valid():
+            form.save()
+            return redirect('post-detail', pk=post.pk)
+    else:
+        form = PostForm(instance=post)
+    return render(request, 'blog/post_form.html', {'form': form})
+
+@login_required
+def delete_post(request, id):
+    post = get_object_or_404(Post, id=id)
+    if request.method == "POST":
+        post.delete()
+        return redirect('posts')
+    return render(request, 'blog/post_confirm_delete.html', {'post': post})"""
