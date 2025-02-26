@@ -3,14 +3,11 @@ from django.contrib import messages
 from django.contrib.auth import login, authenticate, logout
 from django.contrib.auth.decorators import login_required, user_passes_test
 from .models import Profile
-from .forms import LoginForm, RegisterForm, ProfileForm, UserForm
+from .forms import LoginForm, RegisterForm, ProfileForm
 from django.contrib.auth.forms import UserChangeForm
 from django.contrib.auth.models import User
 from blog.models import Post  
 from .forms import PostForm
-
-#def home(request):
-#    return render(request, 'home.html')
 
 def sign_in(request):
 
@@ -56,19 +53,17 @@ def sign_up(request):
         else:
             return render(request, 'users/register.html', {'form': form})
 
+
 @login_required
 def profile(request):
     if request.method == 'POST':
         form = ProfileForm(request.POST, instance=request.user)
         if form.is_valid():
-            user = form.save(commit=False)
-            if form.cleaned_data.get('password'):  
-                user.set_password(form.cleaned_data['password'])
-            user.save()
-            return redirect('profile')  
+            form.save()
+            messages.success(request, 'Tu perfil ha sido actualizado.')
+            return redirect('profile')
     else:
         form = ProfileForm(instance=request.user)
-
     return render(request, 'users/profile.html', {'form': form})
 
 @user_passes_test(lambda u: u.is_superuser)

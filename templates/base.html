@@ -26,6 +26,9 @@
 				<li class="nav-item">
 				  <a class="nav-link link-light" style="margin-right: 80px;" href="{% url 'post-create' %}">Nueva Publicación</a>
 				</li>
+				<li class="nav-item">
+					<a class="nav-link link-light" style="margin-right: 80px;" href="{% url 'polls:index' %}">Sistema de Encuestas</a>
+				  </li>
 				<li class="nav-item bg-dark" style="margin-right: 95px;">
 					<div class="btn-group bg-dark">
 						<button type="button" class="btn btn-dark dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">
@@ -51,6 +54,9 @@
 			<li class="nav-item">
 			  <a class="nav-link link-light" style="margin-right: 80px;" href="{% url 'post-create' %}">Nueva Publicación</a>
 			</li>
+			<li class="nav-item">
+				<a class="nav-link link-light" style="margin-right: 80px;" href="{% url 'polls:index' %}">Sistema de Encuestas</a>
+			  </li>
 			<li class="nav-item bg-dark" style="margin-right: 95px;">
 				<div class="btn-group bg-dark">
 					<button type="button" class="btn btn-dark dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">
@@ -78,6 +84,13 @@
 				{% else %}
 					<a class="nav-link link-light" href="{% url 'login' %}?next={% url 'post-create' %}">Nueva Publicación</a>
 				{% endif %}
+			</li>
+			{% if request.user.is_authenticated %}
+			<li class="nav-item">
+				<a class="nav-link link-light" style="margin-right: 80px;" href="{% url 'polls:index' %}">Sistema de Encuestas</a>
+				{% else %}
+				<a class="nav-link link-light" href="{% url 'login' %}?next={% url 'polls:index' %}">Sistema de Encuestas</a>
+			{% endif %}
 			</li>
 			<div class="d-flex">
 				<li class="nav-item"></li>
