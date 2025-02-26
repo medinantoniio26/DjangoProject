@@ -40,7 +40,7 @@
             {% else %}
                 <a href="{% url 'login' %}?next={% url 'post-detail' post.id %}" class="btn btn-outline-warning"><i class="bi bi-pencil-square"></i>Ver Publicación</a>
             {% endif %}
-            <a href="#" class="btn btn-outline-primary" style="position: absolute; right: 10px;">Encuesta Disponible</a>
+            <a href="{% url 'polls:index' %}" class="btn btn-outline-primary" style="position: absolute; right: 10px;">Encuesta Disponible</a>
             </div>
           
         </div>
