@@ -46,7 +46,7 @@ INSTALLED_APPS = [
     'blog.apps.BlogConfig',
     #LOGIN_URL = 'login'
     'django_bootstrap5',
-   # 'polls',
+    'polls',
     
 ]
 

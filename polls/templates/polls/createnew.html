@@ -11,44 +11,26 @@
     <div class="div1">
         <div class="container">
             <div class="div2">
-            <div class="form-container">
-                <form action="{% url 'polls:createnew' %}"method="POST">
-                    {% csrf_token %}
-                    <h1>Agregar una nueva pregunta.</h1>
-                    <input type="text" name="question_text" placeholder="Pregunta..." required>
-                    
-                    <h6>Agrega las opciones:</h6>
-                    <input type="text" name="new_choice_1" placeholder="Opción 1" required>
-                    <input type="text" name="new_choice_2" placeholder="Opción 2" required>
-                    <input type="text" name="new_choice_3" placeholder="Opción 3" required>
-        
-                    <button type="submit">Guardar Pregunta</button>
-                    
-                    <a style="color: rgb(0, 234, 255);" href="{% url 'polls:index' %}">Volver al inicio</a>
-                </form>
-            </div>
-            </div>
-        
-           <div class="div2">
-             <div class="questions-container">
-                <h1>Sistema de Encuestas</h1>
-                <h5>Encuestas Disponibles</h5>
-                {% if latest_question_list %}
-                    <ul>
-                    {% for question in latest_question_list %}
-                        <li>
-                            <a>{{ question.question_text }}</a>
-                            <a href="{% url 'polls:edit' question.id %}">Editar</a>
-                            <a href="{% url 'polls:delete' question.id %}">Eliminar</a>
-                        </li>
-                    {% endfor %}
-                    </ul>
-                {% else %}
-                    <p>No hay encuestas disponibles.</p>
-                {% endif %}
+                <div class="form-container">
+                    <h1>Agregar una nueva pregunta para el post:</h1>
+                    <h2>{{ post.title }}</h2>
+                    <p>{{ post.description }}</p>
+                    <form action="{% url 'polls:createnew' post.id %}" method="POST">
+                        {% csrf_token %}
+                        <input type="text" name="question_text" placeholder="Pregunta..." required>
+                        
+                        <h6>Agrega las opciones:</h6>
+                        <input type="text" name="new_choice_1" placeholder="Opción 1" required>
+                        <input type="text" name="new_choice_2" placeholder="Opción 2" required>
+                        <input type="text" name="new_choice_3" placeholder="Opción 3" required>
+            
+                        <button type="submit">Guardar Pregunta</button>
+                        
+                        <a style="color: rgb(0, 234, 255);" href="{% url 'polls:index' %}">Volver al inicio</a>
+                    </form>
+                </div>
             </div>
         </div>
-           </div>
     </div>
 </body>
 </html>

@@ -5,7 +5,7 @@ from django import forms
 class PostForm(forms.ModelForm):
     class Meta:
         model = Post
-        fields = ['title', 'description', 'content', 'category', 'image']
+        fields = ['title', 'description', 'content', 'category', 'image', 'question']
         widgets = {
             'title': forms.TextInput(attrs={'class': 'form-control'}),
             'description': forms.Textarea(attrs={'class': 'form-control'}),
