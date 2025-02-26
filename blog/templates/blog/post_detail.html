@@ -6,12 +6,16 @@
     <div class="card mb-4" style="padding-top: 20px; color: #3d5866;">
         <div class="card-body p-4">
             <h1 class="mb-4">{{ post.title }}</h1>
-            <p>{{ post.content }}</p>
+            <p style="position: absolute; right: 10px;"><strong>Categoría:</strong> {{ post.category }}</p>
+            <br>
+            <small class="text-muted">Publicado el {{ post.published_at | date:"d M, Y" }} por {{ post.author | title }}</small>
+            <br>
+
+            <p>{{ post.description }}</p>
             {% if post.image %}
                 <img src="{{ post.image.url }}" class="img-fluid mb-3" alt="Imagen de {{ post.title }}">
             {% endif %}
-            <p><strong>Categoría:</strong> {{ post.category }}</p>
-            <small class="text-muted">Publicado el {{ post.published_at | date:"d M, Y" }} por {{ post.author | title }}</small>
+            
             <!--<div class="d-grid gap-2 d-md-flex justify-content-md-end">
                 {% if is_admin or request.user == post.author %}
                     <form method="POST" action="{% url 'post-delete' post.id %}" style="display:inline;">
@@ -21,6 +25,7 @@
                     </form>
                 {% endif %}
             </div> -->
+            <p>{{ post.content }}</p>
         </div>
     </div>
     <h2 class="h4 mt-5">Agrega un Comentario</h2>

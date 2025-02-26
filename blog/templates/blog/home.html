@@ -30,7 +30,7 @@
                 <span class="badge bg-success" style="font-size: 0.4em; position: absolute; right: 10px;">{{ post.category }}</span>
                
             </div></h2>
-            <p class="card-text mt-3">{{ post.content }}</p>
+            <p class="card-text mt-3">{{ post.description }}</p>
             <small class="text-muted">Publicado el {{ post.published_at | date:"d M, Y" }} por {{ post.author | title }}</small>
             <div class="d-grid gap-2 d-md-flex justify-content-md-start" style="margin-top: 20px;">
                <!-- <a class="btn btn-outline-dark" href="{% url 'add_comment_to_post' pk=post.pk %}">Comentarios</a> -->
