@@ -1,3 +1,7 @@
+{% extends 'base.html' %}
+{% load django_bootstrap5 %}
+
+{% block content %}
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -34,11 +38,10 @@
 
 <a href="{% url 'polls:detail' question.id %}">Enviar otra Respuesta</a>
 <a style="background-color: black;" href="{% url 'polls:index' %}">Mas Encuestas</a>
-<a style="color: rgb(0, 234, 255);" href="{% url 'polls:createnew' %}">Crea tu Propia Pregunta</a>
         </div>
     </div>
    
 </body>
 </html>
-
+{% endblock %}
 

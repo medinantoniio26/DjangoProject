@@ -2,23 +2,46 @@
 
 {% load django_bootstrap5 %}
 <!DOCTYPE html>
-<html lang="en">
+<html lang="es">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Registro</title>
 </head>
 <body>
-   <div class="container my-5">
-    <div class="card mb-4">
-        <div class="card-body">
-            {% load django_bootstrap5 %}
-            {% block content %}
-            <div class="card mx-auto p-4" style="max-width: 400px;">
+    <div class="card-body">
+        {% load django_bootstrap5 %}
+        {% block content %}
+        <div class="card mx-auto p-4" style="max-width: 400px;">
             <form method="POST" novalidate>
                 {% csrf_token %}
                 <h2>Registrate</h2>
-                {% bootstrap_form form %}
+                <div class="mb-3">
+                    
+                    {{ form.first_name.label_tag }}
+                    {{ form.first_name }}
+                    
+                </div>
+                <div class="mb-3">
+                    {{ form.last_name.label_tag }}
+                    {{ form.last_name }}
+                </div>
+                <div class="mb-3">
+                    {{ form.username.label_tag }}
+                    {{ form.username }}
+                </div>
+                <div class="mb-3">
+                    {{ form.email.label_tag }}
+                    {{ form.email }}
+                </div>
+                <div class="mb-3">
+                    {{ form.password1.label_tag }}
+                    {{ form.password1 }}
+                </div>
+                <div class="mb-3">
+                    {{ form.password2.label_tag }}
+                    {{ form.password2 }}
+                </div>
                 <button type="submit" class="btn btn-primary">Registrarse</button>
                 <label for="first_name" class="form-label">Nombre</label>
                 {% if request.POST %} 
@@ -35,10 +58,8 @@
                     {% endfor %}
                 {% endif %}
             </form>
-            </div>
-            {% endblock %}
         </div>
+        {% endblock %}
     </div>
-</div>
 </body>
 </html>

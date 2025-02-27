@@ -25,8 +25,13 @@ class RegisterForm(UserCreationForm):
     last_name = forms.CharField(required=False)
 
     class Meta:
+<<<<<<< HEAD
         model = User
         fields = ['first_name', 'last_name', 'username', 'email', 'password1', 'password2', ]
+=======
+        model=User
+        fields = ['username', 'first_name', 'last_name', 'email','password1','password2'] 
+>>>>>>> 27de25d (hasta el moemnto funciona)
         labels = {
             'first_name': 'Nombre',
             'last_name': 'Apellido',
