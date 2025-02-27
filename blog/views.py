@@ -20,22 +20,23 @@ def my_posts(request):
     posts = Post.objects.filter(author=request.user)
     return render(request, 'blog/my_posts.html', {'posts': posts})
 
+
 @login_required
 def create_post(request):
-    is_admin = request.user.groups.filter(name='admins').exists()  
-
-    if request.method == 'GET':
-        context = {'form': PostForm(), 'is_admin': is_admin}
-        return render(request, 'blog/post_form.html', context)
-    
-    elif request.method == 'POST':
-        form = PostForm(request.POST)
+    if request.method == 'POST':
+        form = PostForm(request.POST, request.FILES)
         if form.is_valid():
             post = form.save(commit=False)
             post.author = request.user
             post.save()
             messages.success(request, 'Publicación creada exitosamente.')
-            return redirect('posts')
+            return redirect('post-detail', pk=post.pk)
+        else:
+            messages.error(request, 'Por favor corrige los errores a continuación.')
+    else:
+        form = PostForm()
+    
+    return render(request, 'blog/post_form.html', {'form': form})
         
 
 from django.contrib.auth.models import Group

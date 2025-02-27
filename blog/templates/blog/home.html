@@ -31,7 +31,11 @@
                
             </div></h2>
             <p class="card-text mt-3">{{ post.description }}</p>
-            <small class="text-muted">Publicado el {{ post.published_at | date:"d M, Y" }} por {{ post.author | title }}</small>
+<<<<<<< HEAD
+            <small class="text-muted">Publicado el {{ post.published_at | date:"d M, Y" }} por {{ post.author.first_name }} {{ post.author.last_name }}</small>
+=======
+            <small class="text-muted">Publicado el {{ post.published_at | date:"d M, Y" }} por {{ post.author.first_name }} {{ post.author.last_name | title }}</small>
+>>>>>>> 27de25d (hasta el moemnto funciona)
             <div class="d-grid gap-2 d-md-flex justify-content-md-start" style="margin-top: 20px;">
                <!-- <a class="btn btn-outline-dark" href="{% url 'add_comment_to_post' pk=post.pk %}">Comentarios</a> -->
                
@@ -40,7 +44,9 @@
             {% else %}
                 <a href="{% url 'login' %}?next={% url 'post-detail' post.id %}" class="btn btn-outline-warning"><i class="bi bi-pencil-square"></i>Ver Publicación</a>
             {% endif %}
-            <a href="{% url 'polls:index' %}" class="btn btn-outline-primary" style="position: absolute; right: 10px;">Encuesta Disponible</a>
+            {% if post.poll %}
+                <a href="{% url 'polls:index' %}" class="btn btn-outline-primary" style="position: absolute; right: 10px;">Encuesta Disponible</a>
+            {% endif %}
             </div>
           
         </div>

@@ -18,6 +18,7 @@
 			{% if request.user.is_superuser %}
 		<!-- <li>User: {{ user.get_username }}</li> -->
 		
+<<<<<<< HEAD
 			<ul class="navbar navbar-dark bg-dark nav justify-content-center">
 				
 				<li class="nav-item">
@@ -26,6 +27,9 @@
 				<li class="nav-item">
 				  <a class="nav-link link-light" style="margin-right: 80px;" href="{% url 'post-create' %}">Nueva Publicación</a>
 				</li>
+				<li class="nav-item">
+					<a class="nav-link link-light" style="margin-right: 80px;" href="{% url 'polls:index' %}">Sistema de Encuestas</a>
+				  </li>
 				<li class="nav-item bg-dark" style="margin-right: 95px;">
 					<div class="btn-group bg-dark">
 						<button type="button" class="btn btn-dark dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">
@@ -45,12 +49,53 @@
   		{%else%}
 		  <ul class="navbar navbar-dark bg-dark nav justify-content-center">
 				
+=======
+		<ul class="navbar navbar-dark bg-dark nav justify-content-center">
+>>>>>>> 27de25d (hasta el moemnto funciona)
 			<li class="nav-item">
-			  <a class="nav-link link-light" style="margin-right: 95px;" href="{% url 'posts' %}">Publicaciones</a>
+				<a class="nav-link link-light" style="margin-right: 95px;" href="{% url 'posts' %}">Publicaciones</a>
 			</li>
 			<li class="nav-item">
-			  <a class="nav-link link-light" style="margin-right: 80px;" href="{% url 'post-create' %}">Nueva Publicación</a>
+				{% if request.user.is_authenticated %}
+					<a class="nav-link link-light" style="margin-right: 80px;" href="{% url 'post-create' %}">Nueva Publicación</a>
+					<a class="nav-link link-light" href="{% url 'polls:index' %}">Sistema de Encuestas</a>
+				{% else %}
+					<a class="nav-link link-light" style="margin-right: 80px;" href="{% url 'login' %}?next={% url 'post-create' %}">Nueva Publicación</a>
+					<a class="nav-link link-light" href="{% url 'login' %}?next={% url 'polls:index' %}">Sistema de Encuestas</a>
+				{% endif %}
 			</li>
+			<li class="nav-item bg-dark" style="margin-right: 95px;">
+				<div class="btn-group bg-dark">
+					<button type="button" class="btn btn-dark dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">
+						Perfil
+					</button>
+					<div class="dropdown-menu" style="margin-right: 25px;">
+						<a class="dropdown-item" href="{% url 'profile' %}">Editar Perfil</a>
+						<a class="dropdown-item" href="{% url 'admin_users' %}">Administrar Usuarios</a>
+						<a class="dropdown-item" href="{% url 'my_posts' %}">Mis Publicaciones</a>
+						<div class="dropdown-divider"></div>
+						<a class="dropdown-item" href="{% url 'logout' %}">Cerrar Sesión</a>
+					</div>
+				</div>
+			</li>
+		</ul>
+  		{%else%}
+		  <ul class="navbar navbar-dark bg-dark nav justify-content-center">
+			<li class="nav-item">
+				<a class="nav-link link-light" style="margin-right: 95px;" href="{% url 'posts' %}">Publicaciones</a>
+			</li>
+			<li class="nav-item">
+				{% if request.user.is_authenticated %}
+					<a class="nav-link link-light" style="margin-right: 80px;" href="{% url 'post-create' %}">Nueva Publicación</a>
+					<a class="nav-link link-light" href="{% url 'polls:index' %}">Sistema de Encuestas</a>
+				{% else %}
+					<a class="nav-link link-light" style="margin-right: 80px;" href="{% url 'login' %}?next={% url 'post-create' %}">Nueva Publicación</a>
+					<a class="nav-link link-light" href="{% url 'login' %}?next={% url 'polls:index' %}">Sistema de Encuestas</a>
+				{% endif %}
+			</li>
+			<li class="nav-item">
+				<a class="nav-link link-light" style="margin-right: 80px;" href="{% url 'polls:index' %}">Sistema de Encuestas</a>
+			  </li>
 			<li class="nav-item bg-dark" style="margin-right: 95px;">
 				<div class="btn-group bg-dark">
 					<button type="button" class="btn btn-dark dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">
@@ -68,16 +113,26 @@
 		  </ul>
 		  {% endif %}
 		  {% else %}
-		<ul class="navbar navbar-dark bg-dark justify-content-between">
-			<li class="nav-item"></li>
+		  <ul class="navbar navbar-dark bg-dark justify-content-between">
+			<li class="nav-item">
 				<a class="nav-link link-light" href="{% url 'posts' %}">Publicaciones</a>
 			</li>
 			<li class="nav-item">
 				{% if request.user.is_authenticated %}
-					<a class="nav-link link-light" href="{% url 'post-create' %}">Nueva Publicación</a>
+					<a class="nav-link link-light" style="margin-right: 80px;" href="{% url 'post-create' %}">Nueva Publicación</a>
+					<a class="nav-link link-light" href="{% url 'polls:index' %}">Sistema de Encuestas</a>
 				{% else %}
-					<a class="nav-link link-light" href="{% url 'login' %}?next={% url 'post-create' %}">Nueva Publicación</a>
+					<a class="nav-link link-light" style="margin-right: 80px;" href="{% url 'login' %}?next={% url 'post-create' %}">Nueva Publicación</a>
+					<a class="nav-link link-light" href="{% url 'login' %}?next={% url 'polls:index' %}">Sistema de Encuestas</a>
 				{% endif %}
+			</li>
+<<<<<<< HEAD
+			{% if request.user.is_authenticated %}
+			<li class="nav-item">
+				<a class="nav-link link-light" style="margin-right: 80px;" href="{% url 'polls:index' %}">Sistema de Encuestas</a>
+				{% else %}
+				<a class="nav-link link-light" href="{% url 'login' %}?next={% url 'polls:index' %}">Sistema de Encuestas</a>
+			{% endif %}
 			</li>
 			<div class="d-flex">
 				<li class="nav-item"></li>
@@ -87,8 +142,23 @@
 					<a class="nav-link link-light" style="margin-right: 25px;" href="{% url 'register' %}">Registrarse</a>
 				</li>
 			</div>
+=======
+			<li class="nav-item bg-dark" style="margin-right: 95px;">
+				<div class="btn-group bg-dark">
+					<button type="button" class="btn btn-dark dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">
+						Perfil
+					</button>
+					<div class="dropdown-menu" style="margin-right: 25px;">
+						<a class="dropdown-item" href="{% url 'profile' %}">Editar Perfil</a>
+						<a class="dropdown-item" href="{% url 'my_posts' %}">Mis Publicaciones</a>
+						<div class="dropdown-divider"></div>
+						<a class="dropdown-item" href="{% url 'logout' %}">Cerrar Sesión</a>
+					</div>
+				</div>
+			</li>
+>>>>>>> 27de25d (hasta el moemnto funciona)
 		</ul>
-  		{%endif%}
+	{% endif %}
 		</div>
   	</header>
   	<main>

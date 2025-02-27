@@ -1,6 +1,10 @@
 from django.contrib import admin
 from django.urls import path, include
 from users import views
+from django.conf import settings
+from django.conf.urls.static import static
+
+
 
 urlpatterns = [
     path('admin/', admin.site.urls),
@@ -13,12 +17,14 @@ urlpatterns = [
     path('admin_users/delete/<int:user_id>/', views.delete_user, name='delete_user'),
     path('admin_users/<int:user_id>/posts/', views.user_posts, name='user_posts'),
     #path('accounts/', include('django.contrib.auth.urls')),
+    path('users/', include('users.urls')),
     path('polls/', include('polls.urls')),  
    # path('post/edit/<int:id>/', user_views.edit_post, name='post-edit'), 
    # path('post/delete/<int:id>/', user_views.delete_post, name='post-delete'),
 
 ]
 
-
+if settings.DEBUG:
+    urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
 
   

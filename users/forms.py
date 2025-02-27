@@ -17,29 +17,29 @@ class LoginForm(forms.Form):
     
 
 class RegisterForm(UserCreationForm):
-    username = forms.CharField(required=False) 
+    username = forms.CharField(required=False)
     password1 = forms.CharField(widget=forms.PasswordInput, required=False)
     password2 = forms.CharField(widget=forms.PasswordInput, required=False)
     email = forms.EmailField(required=True)
+    first_name = forms.CharField(required=False)
+    last_name = forms.CharField(required=False)
+
     class Meta:
+<<<<<<< HEAD
+        model = User
+        fields = ['first_name', 'last_name', 'username', 'email', 'password1', 'password2', ]
+=======
         model=User
-        fields = ['username','email','password1','password2'] 
+        fields = ['username', 'first_name', 'last_name', 'email','password1','password2'] 
+>>>>>>> 27de25d (hasta el moemnto funciona)
         labels = {
+            'first_name': 'Nombre',
+            'last_name': 'Apellido',
             'username': 'Nombre de usuario',
             'email': 'Correo electrónico',
             'password1': 'Contraseña',
             'password2': 'Confirmar contraseña',
-        }
-        
-class UserForm(forms.ModelForm):
-    class Meta:
-        model = User
-        fields = ['username', 'email', 'first_name', 'last_name']
-        labels = {
-            'username': 'Nombre de usuario',
-            'email': 'Correo electrónico',
-            'first_name': 'Nombre',
-            'last_name': 'Apellido',
+            
         }
 
 class PostForm(forms.ModelForm):
