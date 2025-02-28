@@ -16,23 +16,23 @@
                 <form method="post" enctype="multipart/form-data" novalidate>
                     {% csrf_token %}
                     <div class="mb-3">
-                        {{ form.title.label_tag }}
+                        <label for="first_name" class="form-label">Titulo de la Publicación</label>
                         {{ form.title }}
                     </div>
                     <div class="mb-3">
-                        {{ form.description.label_tag }}
+                        <label for="first_name" class="form-label">Descripción</label>
                         {{ form.description }}
                     </div>
                     <div class="mb-3">
-                        {{ form.content.label_tag }}
+                        <label for="first_name" class="form-label">Contenido</label>
                         {{ form.content }}
                     </div>
                     <div class="mb-3">
-                        {{ form.category.label_tag }}
+                        <label for="first_name" class="form-label">Categoria</label>
                         {{ form.category }}
                     </div>
                     <div class="mb-3">
-                        {{ form.image.label_tag }}
+                        Agregar una imagen
                         {{ form.image }}
                     </div>
                     <button type="submit" class="btn btn-primary w-100">Guardar</button>

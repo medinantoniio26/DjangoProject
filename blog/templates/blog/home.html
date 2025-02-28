@@ -43,6 +43,10 @@
             {% if post.poll %}
                 <a href="{% url 'polls:index' %}" class="btn btn-outline-primary" style="position: absolute; right: 10px;">Encuesta Disponible</a>
             {% endif %}
+            {% if post.poll %}
+            <span class="badge bg-success">Encuesta Agregada</span>
+            
+            {% endif %}
             </div>
           
         </div>

@@ -4,6 +4,7 @@ from django.contrib.auth.decorators import login_required
 from .models import Post, Comment
 from .forms import PostForm
 from .forms import CommentForm
+from polls.models import Poll
 
 @login_required
 def delete_comment(request, pk):
@@ -30,16 +31,23 @@ def create_post(request):
             post.author = request.user
             post.save()
             messages.success(request, 'Publicación creada exitosamente.')
-            return redirect('post-detail', pk=post.pk)
+            return redirect('polls:createnew', pk=post.pk)
         else:
             messages.error(request, 'Por favor corrige los errores a continuación.')
     else:
         form = PostForm()
     
     return render(request, 'blog/post_form.html', {'form': form})
-        
 
-from django.contrib.auth.models import Group
+@login_required
+def assign_poll_to_post(request, post_id, poll_id):
+    post = get_object_or_404(Post, id=post_id)
+    poll = get_object_or_404(Poll, id=poll_id)
+    post.poll = poll
+    post.save()
+    messages.success(request, 'Encuesta asignada exitosamente.')
+    return redirect('post-detail', pk=post.pk)
+        
 
 @login_required
 def edit_post(request, id):
