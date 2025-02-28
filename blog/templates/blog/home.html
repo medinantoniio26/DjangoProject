@@ -31,11 +31,7 @@
                
             </div></h2>
             <p class="card-text mt-3">{{ post.description }}</p>
-<<<<<<< HEAD
-            <small class="text-muted">Publicado el {{ post.published_at | date:"d M, Y" }} por {{ post.author.first_name }} {{ post.author.last_name }}</small>
-=======
             <small class="text-muted">Publicado el {{ post.published_at | date:"d M, Y" }} por {{ post.author.first_name }} {{ post.author.last_name | title }}</small>
->>>>>>> 27de25d (hasta el moemnto funciona)
             <div class="d-grid gap-2 d-md-flex justify-content-md-start" style="margin-top: 20px;">
                <!-- <a class="btn btn-outline-dark" href="{% url 'add_comment_to_post' pk=post.pk %}">Comentarios</a> -->
                
@@ -46,6 +42,10 @@
             {% endif %}
             {% if post.poll %}
                 <a href="{% url 'polls:index' %}" class="btn btn-outline-primary" style="position: absolute; right: 10px;">Encuesta Disponible</a>
+            {% endif %}
+            {% if post.poll %}
+            <span class="badge bg-success">Encuesta Agregada</span>
+            
             {% endif %}
             </div>
           

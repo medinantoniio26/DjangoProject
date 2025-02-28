@@ -17,33 +17,32 @@
                 {% csrf_token %}
                 <h2>Registrate</h2>
                 <div class="mb-3">
-                    
-                    {{ form.first_name.label_tag }}
+                <label for="first_name" class="form-label">Nombre</label>
                     {{ form.first_name }}
                     
                 </div>
                 <div class="mb-3">
-                    {{ form.last_name.label_tag }}
+                    <label for="first_name" class="form-label">Apellido</label>
                     {{ form.last_name }}
                 </div>
                 <div class="mb-3">
-                    {{ form.username.label_tag }}
+                    <label for="first_name" class="form-label">Usuario</label>
                     {{ form.username }}
                 </div>
                 <div class="mb-3">
-                    {{ form.email.label_tag }}
+                    <label for="first_name" class="form-label">Correo</label>
                     {{ form.email }}
                 </div>
                 <div class="mb-3">
-                    {{ form.password1.label_tag }}
+                    <label for="first_name" class="form-label">Contraseña</label>
                     {{ form.password1 }}
                 </div>
                 <div class="mb-3">
-                    {{ form.password2.label_tag }}
+                    <label for="first_name" class="form-label">Confirmar Contraseña</label>
                     {{ form.password2 }}
                 </div>
                 <button type="submit" class="btn btn-primary">Registrarse</button>
-                <label for="first_name" class="form-label">Nombre</label>
+                
                 {% if request.POST %} 
                     {% for field in form %}
                         {% if field.errors and request.POST %}

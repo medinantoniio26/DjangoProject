@@ -24,3 +24,4 @@ urlpatterns = [
     path('reset_votes/<int:question_id>/', ResetVotesView.as_view(), name='reset_votes'),
     path("delete/<int:pk>/", DeleteQuestionView.as_view(), name="delete"),
 ]
+

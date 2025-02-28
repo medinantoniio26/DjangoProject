@@ -8,11 +8,7 @@
             <h1 class="mb-4">{{ post.title }}</h1>
             <p style="position: absolute; right: 10px;"><strong>Categoría:</strong> {{ post.category }}</p>
             <br>
-<<<<<<< HEAD
-            <small class="text-muted">Publicado el {{ post.published_at | date:"d M, Y" }} por {{ post.author.first_name }} {{ post.author.last_name }}</small>
-=======
             <small class="text-muted">Publicado el {{ post.published_at | date:"d M, Y" }} por {{ post.author.first_name }} {{ post.author.last_name | title }}</small>
->>>>>>> 27de25d (hasta el moemnto funciona)
             <br>
 
             <p>{{ post.description }}</p>
@@ -20,16 +16,19 @@
                 <img src="{{ post.image.url }}" class="img-fluid mb-3" alt="Imagen de {{ post.title }}">
             {% endif %}
             
-            <!--<div class="d-grid gap-2 d-md-flex justify-content-md-end">
+           
+            <p>{{ post.content }}</p>
+            <br><hr>
+             <div class="d-grid gap-2 d-md-flex justify-content-md-end">
                 {% if is_admin or request.user == post.author %}
                     <form method="POST" action="{% url 'post-delete' post.id %}" style="display:inline;">
                         {% csrf_token %}
-                        <a href="{% url 'post-edit' post.id %}" class="btn btn-outline-warning">Editar</a>
-                        <button type="submit" class="btn btn-outline-danger"><i class="bi bi-trash"></i>Eliminar</button>
+                        <a href="{% url 'polls:createnew' post.id %}" class="btn btn-outline-warning w-100">
+                            {% if post.poll %}Editar Encuesta{% else %}Crear Encuesta{% endif %}
+                        </a>
                     </form>
                 {% endif %}
-            </div> -->
-            <p>{{ post.content }}</p>
+            </div> 
         </div>
     </div>
     <hr class="my-4">
@@ -37,9 +36,8 @@
     <form method="POST" action="{% url 'add_comment_to_post' pk=post.pk %}" class="post-form">
         {% csrf_token %}
         {{ form.non_field_errors }}
-        <div class="form-group">
-            {{ form.text.label_tag }}
-            {{ form.text }}
+        <div class="form-group" style="margin-top: 15px;">
+            {{ form.text}}
         </div>
         <button type="submit" class="btn btn-sm btn-primary mt-3">Comentar</button>
     </form>

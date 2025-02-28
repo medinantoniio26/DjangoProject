@@ -1,10 +1,11 @@
 import datetime
 from django.contrib import admin
-
-from django.db import models
+#from blog.models import Post
 from django.utils import timezone
+from django.db import models
 
 class Question(models.Model):
+    post = models.ForeignKey('blog.Post', on_delete=models.CASCADE, related_name='questions', null=True, blank=True)
     question_text = models.CharField(max_length=200)
     pub_date = models.DateTimeField('date published', default=timezone.now)
 
@@ -23,13 +24,24 @@ class Question(models.Model):
     def was_published_recently(self):
         now = timezone.now()
         return now - datetime.timedelta(days=1) <= self.pub_date <= now
-    
 
 class Choice(models.Model):
     question = models.ForeignKey(Question, on_delete=models.CASCADE)
     choice_text = models.CharField(max_length=200)
     votes = models.IntegerField(default=0)
-    #name = models.CharField(max_length=50, null=True)
+
     def __str__(self):
         return self.choice_text
-    
+
+
+class Poll(models.Model):
+    title = models.CharField(max_length=200)
+    description = models.TextField()
+
+    def __str__(self):
+        return self.title
+
+    def get_posts(self):
+        # Importación dentro del método para evitar la importación circular
+        from blog.models import Post
+        return Post.objects.filter(poll=self)
