@@ -11,11 +11,12 @@ from django.views import View
 from blog.models import Post
 
 class IndexView(ListView):
-    template_name = "polls/index.html"
-    context_object_name = "latest_question_list"
+    template_name = 'polls/index.html'
+    context_object_name = 'latest_question_list'
 
     def get_queryset(self):
-        return Question.objects.filter(pub_date__lte=timezone.now()).order_by("-pub_date")[:5]
+        """Return the last five published questions."""
+        return Question.objects.order_by('-pub_date')[:5]
 
 class DetailView(DetailView):
     model = Question
@@ -50,8 +51,11 @@ class CreateQuestionView(CreateView):
         return context
 
     def form_valid(self, form):
-        self.object = form.save()
         post_id = self.kwargs.get('post_id')
+        post = get_object_or_404(Post, pk=post_id)
+        self.object = form.save(commit=False)
+        self.object.post = post
+        self.object.save()
 
         for i in range(1, 4):
             choice_text = self.request.POST.get(f'new_choice_{i}', '').strip()

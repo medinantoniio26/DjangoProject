@@ -1,3 +1,7 @@
+{% extends 'base.html' %}
+{% load django_bootstrap5 %}
+
+{% block content %}
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -14,7 +18,8 @@
         {% csrf_token %}
         <h3>Responde Segun Corresponda</h3>
         <fieldset>
-            
+            <h2>{{ question.title }}</h2>
+            <p>{{ question.description }}</p>
             <legend><h1>{{ question.question_text }} </h1></legend>
             {% if error_message %}<p><strong>{{ error_message }}</strong></p>{% endif %}
             {% for choice in question.choice_set.all %}
@@ -33,3 +38,4 @@
 
 </body>
 </html>
+{% endblock %}

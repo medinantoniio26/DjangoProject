@@ -1,9 +1,5 @@
 {% extends 'base.html' %}
-<<<<<<< HEAD
-{% load static %}
-=======
 {% load django_bootstrap5 %}
->>>>>>> 27de25d (hasta el moemnto funciona)
 
 {% block content %}
 <!DOCTYPE html>
@@ -11,6 +7,8 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    {% load static %}
+
     <link rel="stylesheet" href="{% static 'polls/style.css' %}">
     <title>Inicio</title>
 </head>
@@ -27,14 +25,14 @@
                     {% endfor %}
                 </ul>
                 {% else %}
-                <p>No polls are available.</p>
+                <p>No hay encuestas disponinbles.</p>
                 {% endif %}
             </div>
         </div>
     </div>
-
-    <div style="margin-top: 20px; text-align: center;">
-        <a href="{% url 'polls:createnew' 1 %}" class="round-button">Nueva Encuesta</a> <!-- Reemplaza '1' con un post_id válido -->
+   
+    <!-- <div style="margin-top: 20px; text-align: center;">
+        <a href="{% url 'polls:createnew' 1 %}" class="round-button">Nueva Encuesta</a> -->
     </div>
 </body>
 </html>
