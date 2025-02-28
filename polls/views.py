@@ -50,8 +50,11 @@ class CreateQuestionView(CreateView):
         return context
 
     def form_valid(self, form):
-        self.object = form.save()
         post_id = self.kwargs.get('post_id')
+        post = get_object_or_404(Post, pk=post_id)
+        self.object = form.save(commit=False)
+        self.object.post = post
+        self.object.save()
 
         for i in range(1, 4):
             choice_text = self.request.POST.get(f'new_choice_{i}', '').strip()

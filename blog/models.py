@@ -10,7 +10,7 @@ class Post(models.Model):
     image = models.ImageField(upload_to='post_images/', blank=True, null=True)
     published_at = models.DateTimeField(default=timezone.now)
     author = models.ForeignKey(User, on_delete=models.CASCADE)
-    question = models.ForeignKey('polls.Question', on_delete=models.SET_NULL, null=True, blank=True)  # Relación con la encuesta
+    question = models.ForeignKey('polls.Question', on_delete=models.CASCADE, related_name='post_question')
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
 

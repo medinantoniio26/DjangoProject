@@ -8,11 +8,7 @@
             <h1 class="mb-4">{{ post.title }}</h1>
             <p style="position: absolute; right: 10px;"><strong>Categoría:</strong> {{ post.category }}</p>
             <br>
-<<<<<<< HEAD
-            <small class="text-muted">Publicado el {{ post.published_at | date:"d M, Y" }} por {{ post.author.first_name }} {{ post.author.last_name }}</small>
-=======
             <small class="text-muted">Publicado el {{ post.published_at | date:"d M, Y" }} por {{ post.author.first_name }} {{ post.author.last_name | title }}</small>
->>>>>>> 27de25d (hasta el moemnto funciona)
             <br>
 
             <p>{{ post.description }}</p>
