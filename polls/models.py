@@ -1,8 +1,9 @@
 import datetime
 from django.contrib import admin
-#from blog.models import Post
+from blog.models import Post
 from django.utils import timezone
 from django.db import models
+from django.apps import apps 
 
 class Question(models.Model):
     post = models.ForeignKey('blog.Post', on_delete=models.CASCADE, related_name='questions', null=True, blank=True)
@@ -37,11 +38,13 @@ class Choice(models.Model):
 class Poll(models.Model):
     title = models.CharField(max_length=200)
     description = models.TextField()
-
+    post = models.OneToOneField('blog.Post', on_delete=models.CASCADE, related_name='poll_post') 
+    question_text = models.CharField(max_length=200, blank=True, null=True)
+    pub_date = models.DateTimeField('date published', default=timezone.now)
     def __str__(self):
         return self.title
 
+
     def get_posts(self):
-        # Importación dentro del método para evitar la importación circular
-        from blog.models import Post
+        Post = apps.get_model('blog', 'Post') 
         return Post.objects.filter(poll=self)
