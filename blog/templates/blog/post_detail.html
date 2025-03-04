@@ -11,14 +11,13 @@
             <small class="text-muted">Publicado el {{ post.published_at | date:"d M, Y" }} por {{ post.author.first_name }} {{ post.author.last_name | title }}</small>
             <br>
 
-            <p>{{ post.description }}</p>
-           
+            <p>{{ post.description|linebreaks }}</p>
+            {% if post.image %}
+                <img src="{{ post.image.url }}" alt="{{ post.title }}" class="img-fluid">
+            {% endif %}
             
            
-            <p>{{ post.content }}</p>
-            {% if post.image %}
-            <img src="{{ post.image.url }}" class="img-fluid mb-3" alt="Imagen de {{ post.title }}">
-        {% endif %}
+            <p>{{ post.content|linebreaks }}</p>
             <br><hr>
              <div class="d-grid gap-2 d-md-flex justify-content-md-end">
                 {% if is_admin or request.user == post.author %}
