@@ -2,8 +2,13 @@ from django.db import models
 from django.utils import timezone
 from django.contrib.auth.models import User
 from django.db import models
+<<<<<<< HEAD
 #from polls.models import Poll
 from django.apps import apps
+=======
+from polls.models import Poll
+from polls.models import Question
+>>>>>>> 459100e (funcionaa)
 
 class Post(models.Model):
     title = models.CharField(max_length=200)
