@@ -5,17 +5,24 @@ from .models import Post, Comment
 from .forms import PostForm
 from .forms import CommentForm
 from polls.models import Poll
+from .models import Post
 
 @login_required
 def delete_comment(request, pk):
     comment = get_object_or_404(Comment, pk=pk)
     if request.user.is_authenticated and (request.user.username == comment.author or request.user.groups.filter(name='admins').exists()):
         comment.delete()
+
 def home(request):
-    posts = Post.objects.all()  
+    posts = Post.objects.all().select_related('poll') 
     is_admin = request.user.is_authenticated and request.user.groups.filter(name='admins').exists()
-    context = {'posts': posts, 'is_admin': is_admin}
-    return render(request, 'blog/home.html', context) 
+    
+    context = {
+        'posts': posts,
+        'is_admin': is_admin,
+    }
+    
+    return render(request, 'blog/home.html', context)
 
 def my_posts(request):
     posts = Post.objects.filter(author=request.user)
@@ -24,6 +31,7 @@ def my_posts(request):
 
 @login_required
 def create_post(request):
+    post = None
     if request.method == 'POST':
         form = PostForm(request.POST, request.FILES)
         if form.is_valid():
@@ -31,7 +39,7 @@ def create_post(request):
             post.author = request.user
             post.save()
             messages.success(request, 'Publicación creada exitosamente.')
-            return redirect('polls:createnew', pk=post.pk)
+            return redirect('polls:createnew', post_id=post.pk)
         else:
             messages.error(request, 'Por favor corrige los errores a continuación.')
     else:
@@ -56,14 +64,16 @@ def edit_post(request, id):
 
     if not (is_admin or post.author == request.user):
         messages.error(request, "No tienes permiso para editar esta publicación.")
-        return redirect('posts')
+        return redirect('home') 
+        #return redirect('posts')
 
     if request.method == 'POST':
         form = PostForm(request.POST, instance=post)
         if form.is_valid():
             form.save()
             messages.success(request, 'Publicación actualizada.')
-            return redirect('posts')
+            return redirect('home') 
+            #return redirect('posts')
     else:
         form = PostForm(instance=post)
 
@@ -77,12 +87,14 @@ def delete_post(request, id):
 
     if not (is_admin or post.author == request.user):
         messages.error(request, "No tienes permiso para eliminar esta publicación.")
-        return redirect('posts')
+        return redirect('home') 
+        #return redirect('posts')
 
     if request.method == 'POST':
         post.delete()
         messages.success(request, 'Publicación eliminada.')
-        return redirect('posts')
+        return redirect('home') 
+        #return redirect('posts')
 
     return render(request, 'blog/post_confirm_delete.html', {'post': post, 'is_admin': is_admin})
 
@@ -118,4 +130,8 @@ def delete_comment(request, pk):
     comment = get_object_or_404(Comment, pk=pk)
     if request.user.is_authenticated and (request.user.username == comment.author or request.user.groups.filter(name='admins').exists()):
         comment.delete()
+        messages.success(request, "Comentario eliminado correctamente.")
+    else:
+        messages.error(request, "No tienes permiso para eliminar este comentario.")
+    
     return redirect('post-detail', pk=comment.post.pk)
