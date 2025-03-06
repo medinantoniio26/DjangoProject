@@ -5,9 +5,15 @@ from django.utils import timezone
 from django.db import models
 
 class Question(models.Model):
-    post = models.ForeignKey('blog.Post', on_delete=models.CASCADE, related_name='questions', null=True, blank=True)
+    post = models.OneToOneField(
+        'blog.Post',
+        on_delete=models.CASCADE,
+        null=True,
+        blank=True,
+        related_name='poll_question'
+    )
     question_text = models.CharField(max_length=200)
-    pub_date = models.DateTimeField('date published', default=timezone.now)
+    pub_date = models.DateTimeField(default=timezone.now)
 
     def __str__(self):
         return self.question_text
