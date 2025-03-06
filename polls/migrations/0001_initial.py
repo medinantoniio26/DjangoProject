@@ -31,22 +31,8 @@ class Migration(migrations.Migration):
             fields=[
                 ('id', models.BigAutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
                 ('question_text', models.CharField(max_length=200)),
-<<<<<<< HEAD
-                ('pub_date', models.DateTimeField(default=django.utils.timezone.now, verbose_name='date published')),
-                ('post', models.ForeignKey(blank=True, null=True, on_delete=django.db.models.deletion.CASCADE, related_name='questions', to='blog.post')),
-            ],
-        ),
-        migrations.CreateModel(
-            name='Poll',
-            fields=[
-                ('id', models.BigAutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
-                ('title', models.CharField(max_length=200)),
-                ('description', models.TextField()),
-                ('post', models.OneToOneField(on_delete=django.db.models.deletion.CASCADE, related_name='poll_post', to='blog.post')),
-=======
                 ('pub_date', models.DateTimeField(default=django.utils.timezone.now)),
                 ('post', models.OneToOneField(blank=True, null=True, on_delete=django.db.models.deletion.CASCADE, related_name='poll_question', to='blog.post')),
->>>>>>> 459100e (funcionaa)
             ],
         ),
         migrations.CreateModel(
