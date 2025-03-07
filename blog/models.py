@@ -1,14 +1,7 @@
 from django.db import models
 from django.utils import timezone
 from django.contrib.auth.models import User
-from django.db import models
-<<<<<<< HEAD
-#from polls.models import Poll
 from django.apps import apps
-=======
-from polls.models import Poll
-from polls.models import Question
->>>>>>> 459100e (funcionaa)
 
 class Post(models.Model):
     title = models.CharField(max_length=200)
@@ -18,7 +11,7 @@ class Post(models.Model):
     image = models.ImageField(upload_to='post_images/', blank=True, null=True)
     published_at = models.DateTimeField(default=timezone.now)
     author = models.ForeignKey(User, on_delete=models.CASCADE)
-    question = models.OneToOneField(Question, on_delete=models.CASCADE, null=True, blank=True, related_name='post_question')
+    question = models.OneToOneField('polls.Question', on_delete=models.CASCADE, null=True, blank=True, related_name='post_question')
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
     poll = models.OneToOneField('polls.Poll', on_delete=models.SET_NULL, null=True, blank=True, related_name='post_poll')
