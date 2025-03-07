@@ -5,7 +5,11 @@ from .models import Post, Comment
 from .forms import PostForm
 from .forms import CommentForm
 from polls.models import Poll
+<<<<<<< HEAD
 from .models import Post
+=======
+from django.utils import timezone
+>>>>>>> df9fc9e (porfinfunciona)
 
 @login_required
 def delete_comment(request, pk):
@@ -39,7 +43,11 @@ def create_post(request):
             post.author = request.user
             post.save()
             messages.success(request, 'Publicación creada exitosamente.')
+<<<<<<< HEAD
             return redirect('polls:createnew', post_id=post.pk)
+=======
+            return redirect('polls:createnew', post_id=post.pk)  
+>>>>>>> df9fc9e (porfinfunciona)
         else:
             messages.error(request, 'Por favor corrige los errores a continuación.')
     else:
@@ -95,8 +103,12 @@ def delete_post(request, id):
             post.poll_instance.delete()
         post.delete()
         messages.success(request, 'Publicación eliminada.')
+<<<<<<< HEAD
         return redirect('home') 
         #return redirect('posts')
+=======
+        return redirect('my_posts')
+>>>>>>> df9fc9e (porfinfunciona)
 
     return render(request, 'blog/post_confirm_delete.html', {'post': post, 'is_admin': is_admin})
 

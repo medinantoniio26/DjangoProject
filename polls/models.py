@@ -44,13 +44,23 @@ class Choice(models.Model):
 class Poll(models.Model):
     title = models.CharField(max_length=200)
     description = models.TextField()
+<<<<<<< HEAD
     post = models.OneToOneField('blog.Post', on_delete=models.CASCADE, related_name='poll_post') 
     question_text = models.CharField(max_length=200, blank=True, null=True)
     pub_date = models.DateTimeField('date published', default=timezone.now)
+=======
+    post = models.OneToOneField('blog.Post', on_delete=models.CASCADE, related_name='poll_instance')  
+
+>>>>>>> df9fc9e (porfinfunciona)
     def __str__(self):
         return self.title
 
 
     def get_posts(self):
+<<<<<<< HEAD
         Post = apps.get_model('blog', 'Post') 
+=======
+       
+        from blog.models import Post
+>>>>>>> df9fc9e (porfinfunciona)
         return Post.objects.filter(poll=self)
