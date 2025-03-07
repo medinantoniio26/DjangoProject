@@ -29,9 +29,7 @@
                     </h2>
                 </div>
                 <p class="card-text mt-3">{{ post.description }}</p>
-                {% if post.image %}
-                    <img src="{{ post.image.url }}" class="img-fluid mb-3" alt="Imagen de {{ post.title }}">
-                {% endif %}
+               
                 <small class="text-muted">Publicado el {{ post.published_at | date:"d M, Y" }} por {{ post.author | title }}</small>
     
                 <div class="d-grid gap-2 d-md-flex justify-content-md-end mt-3">

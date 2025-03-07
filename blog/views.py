@@ -5,6 +5,7 @@ from .models import Post, Comment
 from .forms import PostForm
 from .forms import CommentForm
 from polls.models import Poll
+from django.utils import timezone
 
 @login_required
 def delete_comment(request, pk):
@@ -31,7 +32,7 @@ def create_post(request):
             post.author = request.user
             post.save()
             messages.success(request, 'Publicación creada exitosamente.')
-            return redirect('polls:createnew', pk=post.pk)
+            return redirect('polls:createnew', post_id=post.pk)  
         else:
             messages.error(request, 'Por favor corrige los errores a continuación.')
     else:
@@ -80,12 +81,13 @@ def delete_post(request, id):
         return redirect('posts')
 
     if request.method == 'POST':
+        if hasattr(post, 'poll_instance'):
+            post.poll_instance.delete()
         post.delete()
         messages.success(request, 'Publicación eliminada.')
-        return redirect('posts')
+        return redirect('my_posts')
 
     return render(request, 'blog/post_confirm_delete.html', {'post': post, 'is_admin': is_admin})
-
 
 def about(request):
         return render(request, 'blog/about.html')
@@ -105,7 +107,8 @@ def add_comment_to_post(request, pk):
         if form.is_valid():
             comment = form.save(commit=False)
             comment.post = post
-            comment.author = request.user.username 
+            comment.author = request.user.username
+            comment.created_at = timezone.now()  
             comment.save()
             return redirect('post-detail', pk=post.pk)
     else:

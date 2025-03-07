@@ -43,11 +43,12 @@ class Choice(models.Model):
 class Poll(models.Model):
     title = models.CharField(max_length=200)
     description = models.TextField()
+    post = models.OneToOneField('blog.Post', on_delete=models.CASCADE, related_name='poll_instance')  
 
     def __str__(self):
         return self.title
 
     def get_posts(self):
-        # Importación dentro del método para evitar la importación circular
+       
         from blog.models import Post
         return Post.objects.filter(poll=self)
