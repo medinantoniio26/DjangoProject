@@ -2,8 +2,7 @@ from django.db import models
 from django.utils import timezone
 from django.contrib.auth.models import User
 from django.db import models
-#from polls.models import Poll
-from django.apps import apps
+from polls.models import Poll
 
 class Post(models.Model):
     title = models.CharField(max_length=200)
@@ -16,14 +15,9 @@ class Post(models.Model):
     question = models.ForeignKey('polls.Question', on_delete=models.SET_NULL, related_name='post_question', null=True, blank=True)
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
-    poll = models.OneToOneField('polls.Poll', on_delete=models.SET_NULL, null=True, blank=True, related_name='post_poll')
-
+   
     def __str__(self):
         return self.title
-    
-    def get_poll(self):
-        Poll = apps.get_model('polls', 'Poll')
-        return Poll.objects.get(post=self)
 
     class Meta:
         ordering = ['-published_at']
