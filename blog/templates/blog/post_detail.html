@@ -11,21 +11,37 @@
             <small class="text-muted">Publicado el {{ post.published_at | date:"d M, Y" }} por {{ post.author.first_name }} {{ post.author.last_name | title }}</small>
             <br>
 
-            <p>{{ post.description }}</p>
+<<<<<<< HEAD
+            <p>{{ post.description|linebreaks }}</p>
             {% if post.image %}
-                <img src="{{ post.image.url }}" class="img-fluid mb-3" alt="Imagen de {{ post.title }}">
+                <img src="{{ post.image.url }}" alt="{{ post.title }}" class="img-fluid">
             {% endif %}
             
            
+            <p>{{ post.content|linebreaks }}</p>
+=======
+            <p>{{ post.description }}</p>
+           
+            
+           
             <p>{{ post.content }}</p>
+            {% if post.image %}
+            <img src="{{ post.image.url }}" class="img-fluid mb-3" alt="Imagen de {{ post.title }}">
+        {% endif %}
+>>>>>>> df9fc9e (porfinfunciona)
             <br><hr>
              <div class="d-grid gap-2 d-md-flex justify-content-md-end">
                 {% if is_admin or request.user == post.author %}
                     <form method="POST" action="{% url 'post-delete' post.id %}" style="display:inline;">
-                        {% csrf_token %}
-                        <a href="{% url 'polls:createnew' post.id %}" class="btn btn-outline-warning w-100">
-                            {% if post.poll %}Editar Encuesta{% else %}Crear Encuesta{% endif %}
-                        </a>
+                        {% csrf_token %}        
+                    {% if post.poll %}
+                        <a href="{% url 'polls:createnew' post.id %}" class="btn btn-outline-warning w-100">Editar Encuesta</a>
+                    {% else %}
+                        <a href="{% url 'polls:createnew' post.id %}" class="btn btn-outline-warning w-100">Crear Encuesta</a>
+                    {% endif %}
+                {% elif post.poll %}
+                    <a href="{% url 'polls:detail' post.poll.id %}" class="btn btn-outline-info w-100">Encuesta Disponible</a>
+               
                     </form>
                 {% endif %}
             </div> 

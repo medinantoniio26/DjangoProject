@@ -9,6 +9,8 @@ from django.contrib import messages
 from django.urls import reverse_lazy
 from django.views import View
 from blog.models import Post
+from .forms import PollForm
+from .models import Poll, Question
 
 class IndexView(ListView):
     template_name = 'polls/index.html'
@@ -67,6 +69,25 @@ class CreateQuestionView(CreateView):
         return redirect(self.success_url)
     
 
+def create_poll(request, post_id):
+    post = get_object_or_404(Post, id=post_id)
+
+    existing_poll = Poll.objects.filter(post=post).first()
+    if existing_poll:
+        return redirect('blog:post-detail', pk=post.id)  
+        
+    if request.method == 'POST':
+        form = PollForm(request.POST)
+        if form.is_valid():
+            poll = form.save(commit=False)
+            poll.post = post  
+            poll.save()
+            return redirect('blog:post-detail', pk=post.id)  
+    else:
+        form = PollForm()
+
+    return render(request, 'polls/createnew.html', {'form': form, 'post': post})
+    
 def create_post(request):
     if request.method == 'POST':
         form = PostForm(request.POST, request.FILES)
