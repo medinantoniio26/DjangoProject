@@ -16,19 +16,16 @@
     
     <form action="{% url 'polls:vote' question.id %}" method="post">
         {% csrf_token %}
-        <h2>{{ post.title }}</h2>
-        <p>{{ post.description }}</p>
         <h3>Responde Segun Corresponda</h3>
         <fieldset>
-            <legend><h2>{{ post.title }}</h2>
-            <p>{{ post.description }}</p>
             <h2>{{ question.title }}</h2>
             <p>{{ question.description }}</p>
-           <h1>{{ question.question_text }} </h1></legend>
+            <legend><h1>{{ question.question_text }} </h1></legend>
             {% if error_message %}<p><strong>{{ error_message }}</strong></p>{% endif %}
             {% for choice in question.choice_set.all %}
-                <input type="checkbox" name="choice" id="choice{{ forloop.counter }}" value="{{ choice.id }}" style="vertical-align: middle;">
-                <label for="choice{{ forloop.counter }}" style="vertical-align: middle;">{{ choice.choice_text }}</label><br>
+                <input type="checkbox" name="choice" id="choice{{ forloop.counter }}" value="{{ choice.id }}">
+                <label for="choice{{ forloop.counter }}">{{ choice.choice_text }}</label><br>
+               
             {% endfor %}
            <!-- <input type="text" name="name" id="name" placeholder="Ingresa tu nombre" required
             style="margin: 20px;">-->
